@@ -37,7 +37,7 @@ def login(server, username='Polycom', password='456', scheme="https", timeout=No
     try:
         authorization_header = b64encode(f"{username}:{password}".encode()).decode()
         response = requests.post(f"{scheme}://{server}{login_endpoint}", headers={"Authorization": f"Basic {authorization_header}"}, verify=False, timeout=timeout)
-        authorization_status = False if "failed" in response.text.lower() or 'invalid' in response.text.lower() else True
+        authorization_status = True if "success" in response.text.lower() else False
         t2 = time()
         return authorization_status, t2-t1
     except Exception as error:
